@@ -1,4 +1,9 @@
-(function() {    
+;(function() { 
+
+    if(window.summer){
+        return true;
+    }
+    
 //===========================================================================
 //SUMMER
 // v1.0.0
@@ -105,7 +110,7 @@ window.I18N = summer.i18n;
 })();
 
 //EOF   
-(function() {
+;(function() {
 
 //===========================================================================
 //SUMMER.CONTROLLERS
@@ -139,7 +144,7 @@ window.action = window.summer.action = window.summer.controllers.action;
 
 //EOF    
 
-(function() {
+;(function() {
     
 //===========================================================================
 //SUMMER.VIEWS
