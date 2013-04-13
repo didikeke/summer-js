@@ -173,7 +173,16 @@ var self = window.summer.views = {
 
         return template.process(data);
 
+    },
+
+    //-----------------------------------------------------------------------
+    // RENDER REPLACE - compatible for version 0.0.1
+    //-----------------------------------------------------------------------
+    renderReplace: function(node, path, data) {
+        self.render(node, path, data, true);
     }
+
+
 
 };
 
