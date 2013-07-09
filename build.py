@@ -5,7 +5,7 @@ def file_to_str(filename):
     f.close()
     return result
 
-version = '1.0.1'
+version = '1.0.2'
 javascripts = [
     'summer.js',
     'summer.controllers.js',

@@ -5,6 +5,8 @@
 //===========================================================================
 var self = window.summer.views = {
 
+    version: 1,
+
     //-----------------------------------------------------------------------
     // RENDER
     //-----------------------------------------------------------------------
@@ -25,7 +27,8 @@ var self = window.summer.views = {
         //TrimPath: http://code.google.com/p/trimpath/wiki/JavaScriptTemplates
         _require('TrimPath');
 
-        var template = TrimPath.parseTemplate(_fetch(path));
+        var url = path + "?version=" + self.version;
+        var template = TrimPath.parseTemplate(_fetch(url));
 
         return template.process(data);
 
