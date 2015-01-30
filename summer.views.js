@@ -32,6 +32,16 @@ var self = window.summer.views = {
 
         return template.process(data);
 
+    },
+
+    //-----------------------------------------------------------------------
+    // CACHE
+    //-----------------------------------------------------------------------
+    cache: function(paths, eachCb, endCb) {
+        for (var i = 0; i < paths.length; i++) {
+            paths[i] = paths[i] + "?version=" + self.version;
+        }
+        _fetchPaths(paths, eachCb, endCb);
     }
 
 };
@@ -67,6 +77,7 @@ var _fetch = function(path) {
     var options = {
         type: 'GET',
         url: path,
+        cache: true,
         async: false
     };
 
@@ -75,6 +86,40 @@ var _fetch = function(path) {
     _cache[path] = result;
 
     return result;
+
+};
+
+//--------------------------------------------------------------------------
+// _fetchPaths: fetch and cache urls
+//--------------------------------------------------------------------------
+var _fetchPaths = function(paths, eachCb, endCb){
+    var count = 0;
+
+    for (var i = 0; i < paths.length; i++) {
+        var p = paths[i];
+        var asyncFetch = function(path){
+
+            var options = {
+                type: 'GET',
+                url: path,
+                async: true
+            };
+
+            jQuery.ajax(options)
+                .done(function(result){
+                     _cache[path] = result;
+                })
+                .always(function(){
+                    count++;
+                    summer.noNullFn(eachCb)(count);
+                    if(paths.length === count){
+                        summer.noNullFn(endCb)();
+                    }
+                });
+        };
+
+        asyncFetch(p);
+    };
 
 };
 
