@@ -11,12 +11,19 @@ var self = window.summer.views = {
     // RENDER
     //-----------------------------------------------------------------------
     render: function(node, path, data, replace) {
-        var html = self.renderJst(path, data);
+        var html = window['Handlebars'] ? self.renderHbt(path, data) : self.renderJst(path, data);
         if (replace) {
           $(node).replaceWith(html);
         } else {
           $(node).html(html);
         }
+    },
+    
+    renderHbt: function(templateId, data) {
+        var source = $(templateId).html();
+        var template = Handlebars.compile(source);
+        var html = template(data);
+        return html;
     },
 
     //-----------------------------------------------------------------------
